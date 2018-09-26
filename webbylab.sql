@@ -2,8 +2,8 @@
 CREATE TABLE books (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(30) NOT NULL,
-release_year YEAR NOT NULL,
-format VARCHAR(50)
+release_year INT(6) NOT NULL,
+format VARCHAR(20)
 );
 
 -- Insert Data to table books
@@ -21,7 +21,7 @@ last_name VARCHAR(30) NOT NULL
 );
 
 --  Add Foreign key to table stars
-ALTER TABLE stars ADD FOREIGN KEY (books_id) REFERENCES books(id);
+ALTER TABLE stars ADD FOREIGN KEY (books_id) REFERENCES books(id) ON DELETE CASCADE;
 
 -- Insert Data to table stars
 INSERT INTO stars (books_id, first_name, last_name) VALUES

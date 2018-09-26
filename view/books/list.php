@@ -55,7 +55,7 @@
                     <td><a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/book/read/' . $row['id'] ?>"
                            class="btn btn-success btn-xs"> Detail</a>
                         <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/book/delete/' . $row['id'] ?>"
-                           onclick="return confirm('Anda yakin akan menghapus data ini?')"
+                           onclick="return confirm('You sure to have delete this book?')"
                            class="btn btn-danger btn-xs">
                             Delete</a>
                     </td>

@@ -20,8 +20,7 @@ class Db
     {
 
         $params = include(self::$dbParams);
-
-        $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
+        $dsn = "mysql:host={$params['host']};dbname={$params['dbname']};port={$params['port']}";
         $db = new PDO($dsn, $params['user'], $params['password']);
 
         return $db;

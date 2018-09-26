@@ -57,18 +57,23 @@ class Books
      */
     public static function createBooks()
     {
+        try {
+            $db = Db::getConnection();
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $db = Db::getConnection();
+            $insertQuery = "INSERT INTO books (title, release_year, format) VALUES 
+            ('{$_POST['title']}', {$_POST['year_release']}, '{$_POST['format']}');";
+            $result = $db->exec($insertQuery);
 
-        $sql = 'INSERT INTO books (name, sort_order, status) '
-            . 'VALUES (:name, :sort_order, :status)';
+        } catch (PDOException $e) {
+            echo $insertQuery . "<br>" . $e->getMessage();
+        }
+        if (isset($result)) {
+            return $db->lastInsertId();
+        }
+        Db::closeDbConnection($db);
 
-        $result = $db->prepare($sql);
-        $result->bindParam(':name', $name, PDO::PARAM_STR);
-        $result->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
-        $result->bindParam(':status', $status, PDO::PARAM_INT);
-
-        return $result->execute();
+        return false;
     }
 
     /**
@@ -86,13 +91,12 @@ class Books
             $deleteBook->bindParam(':id', $id, PDO::PARAM_INT);
             $deleteBook->execute();
 
-            Stars::deleteStars($db,$id);
+            Stars::deleteStars($db, $id);
         }
         Db::closeDbConnection($db);
 
         return true;
     }
-
 
 
 }

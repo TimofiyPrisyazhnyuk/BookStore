@@ -28,7 +28,7 @@ class BookController
 
             } else {
                 $saveBook = Books::createBooks();
-                $saveBook = Stars::createStars();
+                ($saveBook) ? Stars::createStars($saveBook) : null;
 
                 header("Location: http://" . $_SERVER['HTTP_HOST'] . "/");
                 exit;
