@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Function automatic autoload for connecting classes
+ *
+ * @param $class_name
+ */
+spl_autoload_register(function ($class_name) {
+
+    $array_paths = array(
+        '/models/',
+        '/components/',
+        '/controllers/',
+    );
+
+    foreach ($array_paths as $path) {
+        $path = ROOT . $path . $class_name . '.php';
+        if (is_file($path)) {
+            include_once $path;
+        }
+    }
+});
