@@ -13,15 +13,28 @@ class Books
     public static function getAllBooks($sort = 'ASC', $search = null)
     {
         $db = Db::getConnection();
-        if ($search) {
+        if (isset($search)) {
+            $books = $db->query("SELECT * FROM books WHERE books.title LIKE '%{$search}%'")
+                ->fetchAll(PDO::FETCH_ASSOC);
 
+            $stars = $db->query("SELECT DISTINCT books_id FROM stars WHERE stars.first_name LIKE '%{$search}%' 
+             OR stars.last_name LIKE '%{$search}%'")->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($stars)) {
+                $starsId = [];
+                for ($i = 0; $i < count($stars); $i++) {
+                    $starsId[] = ($i == 0) ? $stars[$i]['books_id'] : 'OR id=' . $stars[$i]['books_id'];
+                }
+                $getStarBook = $db->query("SELECT * FROM books WHERE id =" . implode(' ', $starsId))
+                    ->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($getStarBook as $item) {
+                    (!in_array($item, $books)) ? $books[] = $item : null;
+                }
+            }
         } else {
-            $books = $db->query("SELECT * FROM books ORDER BY title {$sort}")->fetchAll();
-            $stars = Stars::getAllStars($db);
+            $books = $db->query("SELECT * FROM books ORDER BY title {$sort}")
+                ->fetchAll(PDO::FETCH_ASSOC);
         }
-
-
-        $result = self::implodeResult($books, $stars);
+        $result = self::implodeResult($books, Stars::getAllStars($db));
         Db::closeDbConnection($db);
 
         return $result;
@@ -48,8 +61,8 @@ class Books
             $book['stars'] = $bookStars;
             $result[] = $book;
         }
-        return $result;
 
+        return $result;
     }
 
     /**

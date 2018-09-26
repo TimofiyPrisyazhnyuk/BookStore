@@ -7,9 +7,9 @@
         </div>
         <div class="my-2">
             <div class="float-right my-3">
-                <form class="form-inline my-lg-0">
-                    <input class="form-control float-left mr-sm-2" type="search" placeholder="Search"
-                           aria-label="Search" value="" name="search">
+                <form class="form-inline" method="post" action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>">
+                    <input class="form-control float-left mr-sm-2" type="search" placeholder="Search" name="search"
+                           aria-label="Search" value="<?= (isset($_POST['search'])) ? $_POST['search'] : '' ?>">
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
@@ -33,8 +33,12 @@
                     <div class="float-left"> Title</div>
                     <form action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>" method="POST">
                         <select name="sort" title="sort">
-                            <option value="ASC" <?= ($selected == 'ASC') ? 'selected' : '' ?>>Sort A-Z</option>
-                            <option value="DESC" <?= ($selected == 'DESC') ? 'selected' : '' ?>>Sort Z-A</option>
+                            <option value="ASC" <?= (isset($selected) && $selected == 'ASC') ? 'selected' : '' ?>>
+                                Sort A-Z
+                            </option>
+                            <option value="DESC" <?= (isset($selected) && $selected == 'DESC') ? 'selected' : '' ?>>
+                                Sort Z-A
+                            </option>
                         </select>
                         <button type="submit" class="fa fa-search app-sort" aria-hidden="true"></button>
                     </form>
