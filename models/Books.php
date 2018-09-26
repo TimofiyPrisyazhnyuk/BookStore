@@ -51,21 +51,18 @@ class Books
     }
 
     /**
-     * @param $name
-     * @param $sortOrder
-     * @param $status
+     *
+     *
      * @return bool
      */
-    public static function createBooks($name, $sortOrder, $status)
+    public static function createBooks()
     {
-        // Соединение с БД
+
         $db = Db::getConnection();
 
-        // Текст запроса к БД
         $sql = 'INSERT INTO books (name, sort_order, status) '
             . 'VALUES (:name, :sort_order, :status)';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         $result->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
@@ -78,7 +75,7 @@ class Books
      * Delete Book and stars from db
      *
      * @param integer $id
-     * @return boolean <p>Результат выполнения метода</p>
+     * @return bool
      */
     public static function deleteBookById($id)
     {
