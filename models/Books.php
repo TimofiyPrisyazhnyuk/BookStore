@@ -6,15 +6,37 @@ class Books
     /**
      * Get all list books with actors
      *
+     * @param string $sort
+     * @param null $search
      * @return array
      */
-    public static function getAllBooks()
+    public static function getAllBooks($sort = 'ASC', $search = null)
     {
         $db = Db::getConnection();
-        $books = $db->query('SELECT * FROM books ORDER BY title')->fetchAll();
-        $stars = Stars::getAllStars($db);
-        $result = [];
+        if ($search) {
 
+        } else {
+            $books = $db->query("SELECT * FROM books ORDER BY title {$sort}")->fetchAll();
+            $stars = Stars::getAllStars($db);
+        }
+
+
+        $result = self::implodeResult($books, $stars);
+        Db::closeDbConnection($db);
+
+        return $result;
+    }
+
+    /**
+     *  Resort result to new array
+     *
+     * @param $books
+     * @param $stars
+     * @return array
+     */
+    public static function implodeResult($books, $stars)
+    {
+        $result = [];
         foreach ($books as $book) {
             $bookStars = [];
 
@@ -26,9 +48,8 @@ class Books
             $book['stars'] = $bookStars;
             $result[] = $book;
         }
-        Db::closeDbConnection($db);
-
         return $result;
+
     }
 
     /**

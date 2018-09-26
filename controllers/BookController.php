@@ -9,7 +9,15 @@ class BookController
      */
     public function actionIndex()
     {
-        $books = Books::getAllBooks();
+        if (!empty($_POST['sort'])) {
+            $books = Books::getAllBooks($_POST['sort']);
+            $selected = $_POST['sort'];
+        } else if (!empty($_POST['search'])) {
+            $books = Books::getAllBooks('ASC',$_POST['search']);
+        } else {
+            $books = Books::getAllBooks();
+        }
+        $selected = 'ASC';
         require_once(ROOT . '/view/books/list.php');
 
         return true;
