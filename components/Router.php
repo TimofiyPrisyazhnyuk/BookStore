@@ -52,7 +52,7 @@ class Router
             }
         }
         if ($result == null) {
-            header("HTTP/1.x 404 Not Found");
+//            header("HTTP/1.x 404 Not Found");
             include("view/errors/404.php");
             die();
         }

@@ -2,6 +2,7 @@
 
 class Db
 {
+    
     /**
      * Path to config file with parameters
      *
