@@ -28,7 +28,7 @@
                     <a class="nav-link" href="/">List Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/upload/file">Upload File</a>
+                    <a class="nav-link" href="/file/upload">Upload File</a>
                 </li>
 
             </ul>

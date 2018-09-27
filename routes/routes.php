@@ -1,6 +1,8 @@
 <?php
 
 return array(
+    // File upload functionality
+    'file/upload' => 'upload/index',
 
     // About books
     'book/create' => 'book/create',

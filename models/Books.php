@@ -3,6 +3,7 @@
 
 class Books
 {
+
     /**
      * Get all list books with actors
      *
@@ -85,7 +86,7 @@ class Books
     }
 
     /**
-     *
+     * Create new Book and return id new BOOK  htmlspecialchars
      *
      * @return bool
      */
@@ -96,7 +97,7 @@ class Books
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $insertQuery = "INSERT INTO books (title, release_year, format) VALUES 
-            ('{$_POST['title']}', {$_POST['year_release']}, '{$_POST['format']}');";
+            ('{{$_POST['title']}', {$_POST['year_release']}, '{$_POST['format']}');";
             $result = $db->exec($insertQuery);
 
         } catch (PDOException $e) {

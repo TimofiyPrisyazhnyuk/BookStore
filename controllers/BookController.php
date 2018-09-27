@@ -32,7 +32,6 @@ class BookController
             $validate = Validate::booksValidator();
             if (!empty($validate)) {
                 $errors = $validate;
-
             } else {
                 $saveBook = Books::createBooks();
                 ($saveBook) ? Stars::createStars($saveBook) : null;
@@ -46,30 +45,6 @@ class BookController
 
         return true;
     }
-
-//    /**
-//     * Create and insert new Book to Db with stars
-//     */
-//    public function actionSave()
-//    {
-//        if($_POST['create_books'] == 1){
-//            $validate = Validate::booksValidator();
-//            if(!empty($validate)){
-//                $errors = $validate;
-//                require 'view/books/create.php';
-//                return true;
-//            }
-//            die(var_dump($validate));
-//            $saveBook = Books::createBooks();
-//
-//            $saveBook = Stars::createStars();
-//        }
-//
-//        die(1);
-//
-//        header("Location: http://" . $_SERVER['HTTP_HOST'] . "/");
-//        exit;
-//    }
 
     /**
      * Show page Read  One Book
