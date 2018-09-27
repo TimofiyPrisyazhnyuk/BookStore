@@ -39,7 +39,7 @@
         <?= $content ?>
     </div>
 
-    <footer class="text-center">
+    <footer class="text-center fixed-bottom">
         <div class="alert alert-secondary mb-0">
             <a href="http://webbylab.com">
                 &copy; WebbyLab.com, <?= date('Y') ?>

@@ -6,33 +6,38 @@
             <h1>List Books</h1>
         </div>
         <div class="my-2">
-            <div class="float-right my-3">
-                <form class="form-inline" method="post" action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>">
-                    <input class="form-control float-left mr-sm-2" type="search" placeholder="Search" name="search"
-                           aria-label="Search" value="<?= (isset($_POST['search'])) ? $_POST['search'] : '' ?>">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </div>
+            <div class="">
+                <div class="float-right my-3">
+                    <form class="form-inline" method="post" action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>">
+                        <div class="app-search">
+                            <input class="form-control float-left mr-sm-2" type="search" placeholder="Search"
+                                   name="search"
+                                   aria-label="Search" value="<?= (isset($_POST['search'])) ? $_POST['search'] : '' ?>">
+                            <button class="btn btn-outline-primary " type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="float-right m-3">
-                <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/book/create' ?>"
-                   class="btn btn-outline-success btn-md ">
-                    CRETE NEW BOOK</a>
+                <div class="float-right m-3">
+                    <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/book/create' ?>"
+                       class="btn btn-outline-success btn-md ">
+                        CRETE NEW BOOK</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="table-responsive text-center">
-        <table class="table nowrap table-bordered ">
-            <thead class="thead-dark">
+    <div class="table-responsive">
+        <table class="table nowrap table-bordered text-center table-striped">
+            <thead class="thead-dark nowrap">
             <tr>
                 <th>ID</th>
-                <th>
-                    <div class="float-left"> Title</div>
+                <th class="app-width">
+                    <div class="text-center float-left"> Title</div>
                     <form action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>" method="POST">
-                        <select name="sort" title="sort">
+                        <select name="sort" title="sort" class="app-sort">
                             <option value="ASC" <?= (isset($selected) && $selected == 'ASC') ? 'selected' : '' ?>>
                                 Sort A-Z
                             </option>
@@ -59,17 +64,17 @@
                         <td><?= $row['release_year'] ?></td>
                         <td><?= $row['format'] ?></td>
                         <td>
-
-                            <?php
-                            if (!empty($row['stars'])) {
-                                foreach ($row['stars'] as $item) {
-                                    echo "<div><span class='badge badge-warning'>" .
-                                        $item['first_name'] . ' ' . $item['last_name'] . "</span></div>";
-                                }
-                            } else
-                                echo "<i class='text-danger'>Actors not found</i>";
-                            ?>
-
+                            <div class="app-badge-input">
+                                <?php
+                                if (!empty($row['stars'])) {
+                                    foreach ($row['stars'] as $item) {
+                                        echo "<div><span class='badge badge-warning'>" .
+                                            $item['first_name'] . ' ' . $item['last_name'] . "</span></div>";
+                                    }
+                                } else
+                                    echo "<i class='text-danger'>Actors not found</i>";
+                                ?>
+                            </div>
                         </td>
                         <td><a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/book/read/' . $row['id'] ?>"
                                class="btn btn-success btn-xs"> Detail</a>
