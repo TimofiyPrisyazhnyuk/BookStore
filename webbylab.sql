@@ -1,9 +1,9 @@
 --  Create table Books
 CREATE TABLE books (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-title VARCHAR(30) NOT NULL,
+title VARCHAR(120) NOT NULL,
 release_year INT(6) NOT NULL,
-format VARCHAR(20)
+format VARCHAR(100)
 );
 
 -- Insert Data to table books
@@ -16,8 +16,8 @@ INSERT INTO books (title, release_year, format) VALUES
 CREATE TABLE stars (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 books_id int UNSIGNED NOT NULL,
-first_name VARCHAR(30) NOT NULL,
-last_name VARCHAR(30) NOT NULL
+first_name VARCHAR(100) NOT NULL,
+last_name VARCHAR(100) NOT NULL
 );
 
 --  Add Foreign key to table stars

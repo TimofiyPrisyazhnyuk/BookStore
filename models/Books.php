@@ -1,6 +1,5 @@
 <?php
 
-
 class Books
 {
 
@@ -86,26 +85,40 @@ class Books
     }
 
     /**
-     * Create new Book and return id new BOOK  htmlspecialchars
+     * Create new Book and return id new BOOK
      *
+     * @param bool $book
      * @return bool
      */
-    public static function createBooks()
+    public static function createBooks($book = false)
     {
-        try {
-            $db = Db::getConnection();
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db = Db::getConnection();
 
+        if (!empty($_POST)) {
+            $newBook = [
+                htmlspecialchars($_POST['title']),
+                htmlspecialchars($_POST['year_release']),
+                htmlspecialchars($_POST['format'])
+            ];
+        } else if ($book) {
+            $newBook = [
+                htmlspecialchars(trim($book[0][1])),
+                htmlspecialchars($book[1][1]),
+                htmlspecialchars(trim($book[2][1]))
+            ];
+        }
+        try {
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $insertQuery = "INSERT INTO books (title, release_year, format) VALUES 
-            ('{{$_POST['title']}', {$_POST['year_release']}, '{$_POST['format']}');";
+            ('$newBook[0]', $newBook[1], '$newBook[2]');";
             $result = $db->exec($insertQuery);
 
         } catch (PDOException $e) {
             echo $insertQuery . "<br>" . $e->getMessage();
         }
-        if (isset($result)) {
+        if (isset($result))
             return $db->lastInsertId();
-        }
+
         Db::closeDbConnection($db);
 
         return false;
@@ -132,6 +145,5 @@ class Books
 
         return true;
     }
-
 
 }

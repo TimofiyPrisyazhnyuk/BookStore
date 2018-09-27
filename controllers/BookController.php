@@ -1,9 +1,7 @@
 <?php
 
-
 class BookController
 {
-
     /**
      * Basic views first page Books List
      */
