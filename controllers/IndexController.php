@@ -1,0 +1,1 @@
+<?phpclass IndexController{    /**     * Test methods     */    public function actionIndex()    {        echo  'asdfasdf';        return true;    }}

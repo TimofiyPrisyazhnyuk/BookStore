@@ -6,7 +6,6 @@
  * @param $class_name
  */
 spl_autoload_register(function ($class_name) {
-
     $array_paths = array(
         '/models/',
         '/components/',

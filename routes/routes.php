@@ -4,12 +4,15 @@ return array(
     // File upload functionality
     'file/upload' => 'upload/index',
 
-    // About books
-    'book/create' => 'book/create',
-    'book/read/([0-9]+)' => 'book/read/$1',
-    'book/delete/([0-9]+)' => 'book/delete/$1',
+    'break/create' => 'break/create',
+    'break/read/([0-9]+)' => 'break/read/$1',
+    'break/delete/([0-9]+)' => 'break/delete/$1',
 
     // Main Page
-    'index.php' => 'book/index', // actionIndex в BookController
-    '' => 'book/index', // actionIndex в BookController
+    'index.php' => 'index/index', // actionIndex в IndexController
+    '' => 'index/index', // actionIndex в IndexController
 );
+
+
+
+
