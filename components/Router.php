@@ -35,25 +35,30 @@ class Router
 
     /**
      *  Get Connection from URI to action in Controllers
+     * @throws Exception
      */
     public function run()
     {
         $uri = $this->getURI();
+        try {
+            foreach ($this->routes as $uriPattern => $path) {
+                if (preg_match("~$uriPattern~", $uri)) {
+                    $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+                    $action = $this->getControllerAndAction($internalRoute);
 
-        foreach ($this->routes as $uriPattern => $path) {
-            if (preg_match("~$uriPattern~", $uri)) {
-                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-                $action = $this->getControllerAndAction($internalRoute);
-
-                // Invoke receive method in received Controller
-                $result = call_user_func_array(array($action[0], $action[1]), $action[2]);
-                if ($result)
-                    break;
+                    // Invoke receive method in received Controller
+                    $result = call_user_func_array(array($action[0], $action[1]), $action[2]);
+                    if ($result)
+                        break;
+                }
             }
-        }
-        if ($result == null) {
-            include("view/errors/404.php");
-            die();
+            if ($result == null) {
+                include("view/errors/404.php");
+                die();
+            }
+        } catch (\Exception $e) {
+            return ('Error invalid parameters in query ' . $e->getMessage());
+            exit;
         }
     }
 

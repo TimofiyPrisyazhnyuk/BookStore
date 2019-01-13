@@ -1,0 +1,1 @@
+<?phpclass BrakeController{    /**     * Test methods     */    public function actionGet()    {        echo  'asdfasdf';        return true;    }}

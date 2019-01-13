@@ -66,8 +66,8 @@
                         <td>
                             <div class="app-badge-input">
                                 <?php
-                                if (!empty($row['stars'])) {
-                                    foreach ($row['stars'] as $item) {
+                                if (!empty($row['Gps'])) {
+                                    foreach ($row['Gps'] as $item) {
                                         echo "<div><span class='badge badge-warning'>" .
                                             $item['first_name'] . ' ' . $item['last_name'] . "</span></div>";
                                     }

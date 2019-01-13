@@ -2,7 +2,6 @@
 
 class Db
 {
-    
     /**
      * Path to config file with parameters
      *
@@ -17,9 +16,14 @@ class Db
      */
     public static function getConnection()
     {
-        $params = include(self::$dbParams);
-        $dsn = "mysql:host={$params['host']};dbname={$params['dbname']};port={$params['port']}";
-        $db = new PDO($dsn, $params['user'], $params['password']);
+        try {
+            $params = include(self::$dbParams);
+            $dsn = "mysql:host={$params['host']};dbname={$params['dbname']};port={$params['port']}";
+            $db = new PDO($dsn, $params['user'], $params['password']);
+        } catch (\Exception $e) {
+
+            throw new PDOException('Failed connect to MYSQL - ' . $e->getMessage());
+        }
 
         return $db;
     }
